@@ -1,0 +1,19 @@
+# Pliki generowane przez różne IDE i narzędzia
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+
+# Katalogi generowane przez narzędzie coverage.py
+htmlcov/
+
+# Katalogi generowane przez narzędzie py.test
+pytest_cache/
+
+# Pliki generowane przez narzędzie pyInstaller
+dist/
+build/
+
+# Katalogi z wirtualnymi środowiskami Pythona
+venv/
+env/

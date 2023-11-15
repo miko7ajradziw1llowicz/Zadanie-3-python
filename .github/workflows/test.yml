@@ -1,0 +1,31 @@
+name: Weekly Test Run
+
+on:
+  schedule:
+    - cron: "0 18 * * 5"
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run unit tests
+      run: pytest test.py
+
+    - name: Build the executable file
+      run: pyinstaller main.py --onefile

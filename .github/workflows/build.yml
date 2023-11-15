@@ -1,0 +1,54 @@
+name: Weekly Windows EXE Build
+
+on:
+  schedule:
+    - cron: "0 18 * * 5"  # Weekly at midnight on Sunday
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: 🛒 Check out the code
+      uses: actions/checkout@v2
+
+    - name: 🐍 Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: 📦 Install PyInstaller
+      run: pip install pyinstaller
+
+    - name: 📥 Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: 🏗️ Build the executable file
+      run: pyinstaller main.py --onefile
+
+    - name: 🚀 Upload the EXE artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-exe
+        path: dist/main.exe
+
+    - name: 💾 Save the EXE
+      run: |
+        if (Test-Path -Path "main.exe") {
+          Remove-Item -Path "main.exe" -Force
+        }
+        Move-Item -Path "dist/main.exe" -Destination "main.exe"
+
+    - name: 📤 Commit and push the EXE to the repo
+      run: |
+        git config --global user.email "mikolajfirmowy@gmail.com"
+        git config --global user.name "Mikolaj Radziwilowicz"
+        git add main.exe
+        git commit -m "Add main.exe"
+        git push --set-upstream origin main
+      env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

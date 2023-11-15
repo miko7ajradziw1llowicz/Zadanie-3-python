@@ -11,9 +11,9 @@ htmlcov/
 pytest_cache/
 
 # Pliki generowane przez narzędzie pyInstaller
-dist/
-build/
 
+
+.idea/
 # Katalogi z wirtualnymi środowiskami Pythona
 venv/
 env/

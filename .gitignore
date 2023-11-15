@@ -6,7 +6,7 @@ __pycache__
 
 # Katalogi generowane przez narzędzie coverage.py
 htmlcov/
-
+build/
 # Katalogi generowane przez narzędzie py.test
 pytest_cache/
 
